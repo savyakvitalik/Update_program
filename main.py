@@ -20,20 +20,49 @@ else:
 
 PATH = os.getcwd()
 
-def run_program(file_name):
+def zabbix_check(main_list_error,list_error):
+	if(os.path.exists("Zabbix")):
+		pass
+	else:
+		os.mkdir("Zabbix")
+	for word in main_list_error:
+		if word == "Error":
+			file = open(rf"{PATH}\Zabbix\program_update.txt", "w")
+			file.write(f"{list_error}")
+			file.close()
+		else:
+			file = open(rf"{PATH}\Zabbix\program_update.txt", "w")
+			file.write("True")
+			file.close()
+	
+
+def run_program(file_name,main_list_error,list_error):
 	process = subprocess.Popen([f'{PATH}\\{file_name}'],shell = True)
 	process.wait()
 	if process.returncode == 0:
 		print("Success")
 	else:
+		main_list_error.append("Error")
+		list_error.append(f"Error in {file_name}")
 		print("Error")
 
 
 if __name__ == "__main__":
+	main_list_error = [""]
+	list_error = ["Errors: "]
 	process = subprocess.Popen(['pip','install','-r','requirements.txt'],shell = True)
 	process.wait()
-	run_program("7zip_update.py")
-	run_program("filezilla_update.py")
-	run_program("notepad_update.py")
-	run_program("totalcommander_update.py")
+	file_names = ['7zip_update.py','filezilla_update.py','notepad_update.py','totalcommander_update.py']
+	for name in file_names:
+		run_program(name,main_list_error,list_error)
+
+	zabbix_check(main_list_error,list_error)
+		
+
+	# run_program("7zip_update.py",zabbix_check_all)
+	# run_program("filezilla_update.py",zabbix_check_all)
+	# run_program("notepad_update.py",zabbix_check_all)
+	# run_program("totalcommander_update.py",zabbix_check_all)
+	# zabbix_check(zabbix_check_all)
+	# print(zabbix_check_all)
 	
