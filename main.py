@@ -57,12 +57,4 @@ if __name__ == "__main__":
 		run_program(name,main_list_error,list_error)
 
 	zabbix_check(main_list_error,list_error)
-		
 
-	# run_program("7zip_update.py",zabbix_check_all)
-	# run_program("filezilla_update.py",zabbix_check_all)
-	# run_program("notepad_update.py",zabbix_check_all)
-	# run_program("totalcommander_update.py",zabbix_check_all)
-	# zabbix_check(zabbix_check_all)
-	# print(zabbix_check_all)
-	
