@@ -38,6 +38,10 @@ def zabbix_check(main_list_error,list_error):
 	
 
 def run_program(file_name,main_list_error,list_error):
+	if(os.path.exists("Logs")):
+		pass
+	else:
+		os.mkdir("Logs")
 	process = subprocess.Popen([f'{BASE_DIR}\\{file_name}'],shell = True)
 	process.wait()
 	if process.returncode == 0:
