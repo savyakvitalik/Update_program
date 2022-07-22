@@ -1,4 +1,5 @@
 import requests
+from os.path import abspath, dirname, join
 from datetime import date
 from bs4 import BeautifulSoup
 import urllib.request
@@ -18,7 +19,7 @@ else:
     # Handle target environment that doesn't support HTTPS verification
     ssl._create_default_https_context = _create_unverified_https_context
 
-PATH = os.getcwd()
+BASE_DIR = dirname(abspath(__file__))
 
 def zabbix_check(main_list_error,list_error):
 	if(os.path.exists("Zabbix")):
@@ -27,17 +28,17 @@ def zabbix_check(main_list_error,list_error):
 		os.mkdir("Zabbix")
 	for word in main_list_error:
 		if word == "Error":
-			file = open(rf"{PATH}\Zabbix\program_update.txt", "w")
+			file = open(rf"{BASE_DIR}\Zabbix\program_update.txt", "w")
 			file.write(f"{list_error}")
 			file.close()
 		else:
-			file = open(rf"{PATH}\Zabbix\program_update.txt", "w")
+			file = open(rf"{BASE_DIR}\Zabbix\program_update.txt", "w")
 			file.write("True")
 			file.close()
 	
 
 def run_program(file_name,main_list_error,list_error):
-	process = subprocess.Popen([f'{PATH}\\{file_name}'],shell = True)
+	process = subprocess.Popen([f'{BASE_DIR}\\{file_name}'],shell = True)
 	process.wait()
 	if process.returncode == 0:
 		print("Success")
@@ -57,4 +58,3 @@ if __name__ == "__main__":
 		run_program(name,main_list_error,list_error)
 
 	zabbix_check(main_list_error,list_error)
-
