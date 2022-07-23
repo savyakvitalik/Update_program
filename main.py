@@ -58,9 +58,9 @@ if __name__ == "__main__":
 	list_error = ["Errors: "]
 	process_pip_install = subprocess.Popen(['pip','install','-r','requirements.txt'],shell = True)
 	process_pip_install.wait()
-	process_git_pull = subprocess.Popen(['git','pull',''],shell = True)
+	process_git_pull = subprocess.Popen(['git','pull',f'{Repository_name}'],shell = True)
 	process_git_pull.wait()
-	file_names = ['7zip_update.py','filezilla_update.py','notepad_update.py',f'{Repository_name}']
+	file_names = ['7zip_update.py','filezilla_update.py','notepad_update.py','totalcommander_update.py']
 	for name in file_names:
 		run_program(name,main_list_error,list_error)
 
