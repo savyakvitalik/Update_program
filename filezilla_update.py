@@ -22,7 +22,7 @@ else:
 ###########################
 PATH = os.getcwd()
 #This url adress need change
-URL = 'https://download.filezilla-project.org/client/FileZilla_3.60.1_win64_sponsored2-setup.exe'
+URL = 'https://download.filezilla-project.org/client/FileZilla_3.60.2_win64_sponsored2-setup.exe'
 
 
 #Fuction for get current date
