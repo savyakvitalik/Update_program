@@ -20,6 +20,7 @@ else:
     ssl._create_default_https_context = _create_unverified_https_context
 
 BASE_DIR = dirname(abspath(__file__))
+Repository_name = 'https://github.com/savyakvitalik/Update_program.git'
 
 def zabbix_check(main_list_error,list_error):
 	if(os.path.exists("Zabbix")):
@@ -55,9 +56,11 @@ def run_program(file_name,main_list_error,list_error):
 if __name__ == "__main__":
 	main_list_error = [""]
 	list_error = ["Errors: "]
-	process = subprocess.Popen(['pip','install','-r','requirements.txt'],shell = True)
-	process.wait()
-	file_names = ['7zip_update.py','filezilla_update.py','notepad_update.py','totalcommander_update.py']
+	process_pip_install = subprocess.Popen(['pip','install','-r','requirements.txt'],shell = True)
+	process_pip_install.wait()
+	process_git_pull = subprocess.Popen(['git','pull',''],shell = True)
+	process_git_pull.wait()
+	file_names = ['7zip_update.py','filezilla_update.py','notepad_update.py',f'{Repository_name}']
 	for name in file_names:
 		run_program(name,main_list_error,list_error)
 
