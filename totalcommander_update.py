@@ -60,13 +60,10 @@ def check_old_version():
         old_version_1 =check_old_version_64bit_2()
 
     if old_version_1[3] == ".":
-        old_version_2 = old_version_1[0] + old_version_1[1] + old_version_1[2]
+        old_version = old_version_1[0] + old_version_1[1] + old_version_1[2]
     else:
-        old_version_2 = old_version_1[0] + old_version_1[1] + old_version_1[2] + old_version_1[3]
-    old_version_3 = ''.join([old_version_2[i] for i in range(len(old_version_2)) if old_version_2[i] != "."])
-    old_version_4 = ''.join([old_version_3[i] for i in range(len(old_version_3)) if old_version_3[i] != " "])
-    old_version = ''.join([old_version_4[i] for i in range(len(old_version_4)) if old_version_4[i] != ","])
-    return old_version
+        old_version = old_version_1[0] + old_version_1[1] + old_version_1[2] + old_version_1[3]
+    return old_version.replace('.','').replace(' ','').replace(',','')
 
 def check_new_version(html):
     soup = BeautifulSoup(html, 'html.parser')
@@ -74,9 +71,8 @@ def check_new_version(html):
     txt1 = txt.text
     full_version = txt1.split(' ')
     version = full_version[9]
-    new_version_1 = version[:-1]
-    new_version = ''.join([new_version_1[i] for i in range(len(new_version_1)) if new_version_1[i] != "."])
-    return new_version
+    new_version = version[:-1]
+    return new_version.replace('.','').replace(' ','').replace(',','')
 
 def comparisons_version():
     old_version = int(check_old_version())

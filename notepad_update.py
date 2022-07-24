@@ -33,18 +33,16 @@ def get_html(url, params=None):
     return r
 #Function of checking old version notepad++
 def check_old_version():
-    old_version_1 = subprocess.check_output(['powershell.exe',"(Get-Item \"C:\\Program Files\\Notepad++\\notepad++.exe\").VersionInfo.FileVersion"], universal_newlines=True)
-    old_version = ''.join([old_version_1[i] for i in range(len(old_version_1)) if old_version_1[i] != "."])
-    return old_version
+    old_version = subprocess.check_output(['powershell.exe',"(Get-Item \"C:\\Program Files\\Notepad++\\notepad++.exe\").VersionInfo.FileVersion"], universal_newlines=True)
+    return old_version.replace('.','').replace(' ','').replace(',','')
 
 #Function of checking new version notepad++ and write to file
 def check_new_version(html):
     soup = BeautifulSoup(html, 'html.parser')
     items = soup.find('p', class_='library-desc')
     txt = items.text
-    new_version_1 = txt[17:]
-    new_version = ''.join([new_version_1[i] for i in range(len(new_version_1)) if new_version_1[i] != "."])       
-    return new_version
+    new_version = txt[17:]       
+    return new_version.replace('.','').replace(' ','').replace(',','')
 
 #Fuction to comparing old and new date
 def comparisons_version():

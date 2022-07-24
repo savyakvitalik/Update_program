@@ -64,20 +64,17 @@ def get_download_file():
 #Fuction to check old version program
 def check_old_version():
     old_version_1 = subprocess.check_output(['powershell.exe',"(Get-Item \"C:\\Program Files\\FileZilla FTP Client\\filezilla.exe\").VersionInfo.FileVersion"], universal_newlines=True)
-    old_version_2 = ''.join([old_version_1[i] for i in range(len(old_version_1)) if old_version_1[i] != "."])
-    old_version_3 = ''.join([old_version_2[i] for i in range(len(old_version_2)) if old_version_2[i] != " "])
-    old_version_4 = ''.join([old_version_3[i] for i in range(len(old_version_3)) if old_version_3[i] != ","])
-    old_version = old_version_4[:4]
+    old_version_2 = old_version_1.replace('.','').replace(' ','').replace(',','')
+    old_version = old_version_2[:4]
     return old_version
 
 #Fuction to check new version program
 def check_new_version():
     get_download_file()
-    new_version_1 = subprocess.check_output(['powershell.exe',f"(Get-Item \"{PATH}\\downloads\\filezilla.exe\").VersionInfo.FileVersion"], universal_newlines=True)
-    new_version = ''.join([new_version_1[i] for i in range(len(new_version_1)) if new_version_1[i] != "."])
+    new_version = subprocess.check_output(['powershell.exe',f"(Get-Item \"{PATH}\\downloads\\filezilla.exe\").VersionInfo.FileVersion"], universal_newlines=True)
     os.remove(f"{PATH}\\downloads\\filezilla.exe")
     shutil.rmtree("downloads")
-    return new_version
+    return new_version.replace('.','').replace(' ','').replace(',','')
 
 #Fuction to comparing old and new date
 def comparisons_version():

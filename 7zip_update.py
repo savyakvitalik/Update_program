@@ -29,7 +29,7 @@ def get_current_date():
 
 def check_old_version():
     old_version = subprocess.check_output(['powershell.exe',"(Get-Item \"C:\\Program Files\\7-Zip\\7zG.exe\").VersionInfo.FileVersion"], universal_newlines=True)
-    return old_version
+    return old_version.replace('.','').replace(' ','').replace(',','')
 
 def get_html(url):
     r = requests.get(url)
@@ -45,7 +45,7 @@ def check_new_version(html):
     page_text = soup.find_all("b")
     txt = page_text[1].getText()
     new_version = txt[15:20]
-    return new_version
+    return new_version.replace('.','').replace(' ','').replace(',','')
 
 def comparisons_version():
     new_version = float(check_new_version(get_html_text(URL)))
